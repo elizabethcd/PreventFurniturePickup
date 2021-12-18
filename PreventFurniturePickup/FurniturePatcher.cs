@@ -31,12 +31,24 @@ namespace PreventFurniturePickup
             }
             catch (Exception ex)
             {
-                Monitor.Log($"Failed to add postfix to furniture canBeRemoved with exception: {ex}", LogLevel.Error);
+                Monitor.Log($"Failed to add postfix to Furniture canBeRemoved with exception: {ex}", LogLevel.Error);
+            }
+
+            try
+            {
+                harmony.Patch(
+                    original: AccessTools.Method(typeof(BedFurniture), nameof(BedFurniture.canBeRemoved)),
+                    postfix: new HarmonyMethod(typeof(FurniturePatcher), nameof(FurniturePatcher.BedFurniture_canBeRemoved_Postfix))
+                );
+            }
+            catch (Exception ex)
+            {
+                Monitor.Log($"Failed to add postfix to BedFurniture canBeRemoved with exception: {ex}", LogLevel.Error);
             }
 
         }
 
-        // Method that is used to postfix
+        // Method that is used to postfix for most furniture types
         private static void Furniture_canBeRemoved_Postfix(Farmer who, Furniture __instance, ref bool __result)
         {
             try
@@ -204,15 +216,7 @@ namespace PreventFurniturePickup
                         }
                         break;
                     case 15:
-                        // For type bed, change the result if it would be picked up but the config says not to
-                        // Note that this likely has no effect due to the Bed subclass overriding canBeRemoved
-                        if (__result && !Config.CanPickUpBed)
-                        {
-                            Monitor.Log($"Preventing player from picking up bed", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up beds disabled");
-                            __result = false;
-                            return;
-                        }
+                        // For type bed, need to postfix BedFurniture canBeRemoved() specifically
                         break;
                     case 16:
                         // For type torch, change the result if it would be picked up but the config says not to
@@ -246,6 +250,25 @@ namespace PreventFurniturePickup
             }
 
             return;
+        }
+        // Method that is used to postfix beds specifically
+        private static void BedFurniture_canBeRemoved_Postfix(Farmer who, Furniture __instance, ref bool __result)
+        {
+            try
+            {
+                // For type bed, change the result if it would be picked up but the config says not to
+                if (__result && !Config.CanPickUpBed)
+                {
+                    Monitor.Log($"Preventing player from picking up bed", LogLevel.Debug);
+                    Game1.showRedMessage("Picking up beds disabled");
+                    __result = false;
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                Monitor.Log($"Failed to change bed removal behavior with exception: {ex}", LogLevel.Error);
+            }
         }
     }
 }
