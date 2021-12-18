@@ -1,7 +1,7 @@
 ﻿{
   // Add in mod description
   "mod.description": "Adds options to prevent picking up furniture by type.",
-
+  
   // Add in titles for the options
   "CanPickUpBed.title": "Can pick up beds",
   "CanPickUpChair.title": "Can pick up chairs",
