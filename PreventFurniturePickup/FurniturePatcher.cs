@@ -11,12 +11,14 @@ namespace PreventFurniturePickup
     {
         private static IMonitor Monitor;
         private static ModConfig Config;
+        private static ITranslationHelper I18n;
 
         // call this method from your Entry class
-        public static void Initialize(IMonitor monitor, ModConfig config)
+        public static void Initialize(IMonitor monitor, ModConfig config, ITranslationHelper translator)
         {
             Monitor = monitor;
             Config = config;
+            I18n = translator;
         }
 
         // Method to apply harmony patch
@@ -62,7 +64,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up chair", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up chairs disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
                         }
@@ -72,7 +74,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up bench", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up chairs disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
                         }
@@ -82,7 +84,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up couch", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up chairs disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
                         }
@@ -92,7 +94,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up armchair", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up chairs disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
                         }
@@ -102,7 +104,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDresser)
                         {
                             Monitor.Log($"Preventing player from picking up dresser", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up dressers disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpDresser.error"));
                             __result = false;
                             return;
                         }
@@ -112,7 +114,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpTable)
                         {
                             Monitor.Log($"Preventing player from picking up long table", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up tables disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpTable.error"));
                             __result = false;
                             return;
                         }
@@ -125,7 +127,7 @@ namespace PreventFurniturePickup
                             if (__instance.boundingBox.Value.Contains(position.X, position.Y))
                             {
                                 Monitor.Log($"Preventing player from picking up painting", LogLevel.Debug);
-                                Game1.showRedMessage("Picking up decorations disabled");
+                                Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                                 __result = false;
                                 return;
                             }
@@ -136,7 +138,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpLamp)
                         {
                             Monitor.Log($"Preventing player from picking up lamp", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up lamps disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpLamp.error"));
                             __result = false;
                             return;
                         }
@@ -146,7 +148,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up decor", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up decorations disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                             __result = false;
                             return;
                         }
@@ -156,7 +158,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up other furniture", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up decorations disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                             __result = false;
                             return;
                         }
@@ -166,7 +168,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up bookcase", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up decorations disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                             __result = false;
                             return;
                         }
@@ -176,7 +178,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpTable)
                         {
                             Monitor.Log($"Preventing player from picking up table", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up tables disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpTable.error"));
                             __result = false;
                             return;
                         }
@@ -186,7 +188,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpRug)
                         {
                             Monitor.Log($"Preventing player from picking up rug", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up rugs disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpRug.error"));
                             __result = false;
                             return;
                         }
@@ -199,7 +201,7 @@ namespace PreventFurniturePickup
                             if (__instance.boundingBox.Value.Contains(position.X, position.Y))
                             {
                                 Monitor.Log($"Preventing player from picking up window", LogLevel.Debug);
-                                Game1.showRedMessage("Picking up windows disabled");
+                                Game1.showRedMessage(I18n.Get("CanPickUpWindow.error"));
                                 __result = false;
                                 return;
                             }
@@ -210,7 +212,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpFireplace)
                         {
                             Monitor.Log($"Preventing player from picking up fireplace", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up fireplaces disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpFireplace.error"));
                             __result = false;
                             return;
                         }
@@ -223,7 +225,7 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpTorch)
                         {
                             Monitor.Log($"Preventing player from picking up torch", LogLevel.Debug);
-                            Game1.showRedMessage("Picking up torches disabled");
+                            Game1.showRedMessage(I18n.Get("CanPickUpTorch.error"));
                             __result = false;
                             return;
                         }
@@ -236,7 +238,7 @@ namespace PreventFurniturePickup
                             if (__instance.boundingBox.Value.Contains(position.X, position.Y))
                             {
                                 Monitor.Log($"Preventing player from picking up sconce", LogLevel.Debug);
-                                Game1.showRedMessage("Picking up sconces disabled");
+                                Game1.showRedMessage(I18n.Get("CanPickUpSconce.error"));
                                 __result = false;
                                 return;
                             }
@@ -260,7 +262,7 @@ namespace PreventFurniturePickup
                 if (__result && !Config.CanPickUpBed)
                 {
                     Monitor.Log($"Preventing player from picking up bed", LogLevel.Debug);
-                    Game1.showRedMessage("Picking up beds disabled");
+                    Game1.showRedMessage(I18n.Get("CanPickUpBed.error"));
                     __result = false;
                     return;
                 }

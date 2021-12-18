@@ -13,7 +13,8 @@ namespace PreventFurniturePickup
     {
         // Add a config
         private ModConfig Config;
-        public ITranslationHelper I18n;
+        // Add a translator
+        private ITranslationHelper I18n;
 
         /*********
         ** Public methods
@@ -29,11 +30,14 @@ namespace PreventFurniturePickup
             this.I18n = this.Helper.Translation;
 
             // Initialize the error logger in FurniturePatcher
-            FurniturePatcher.Initialize(this.Monitor, this.Config);
+            FurniturePatcher.Initialize(this.Monitor, this.Config, this.I18n);
 
             // Do the Harmony things
             var harmony = new Harmony(this.ModManifest.UniqueID);
             FurniturePatcher.Apply(harmony);
+
+            // Set up GMCM config when game is launched
+            helper.Events.GameLoop.GameLaunched += SetUpConfig;
         }
 
         private void SetUpConfig(object sender, StardewModdingAPI.Events.GameLaunchedEventArgs e)
