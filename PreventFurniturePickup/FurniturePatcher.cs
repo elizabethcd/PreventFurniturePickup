@@ -3,6 +3,7 @@ using HarmonyLib;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.Objects;
+using Microsoft.Xna.Framework;
 
 namespace PreventFurniturePickup
 {
@@ -36,10 +37,12 @@ namespace PreventFurniturePickup
         }
 
         // Method that is used to postfix
-        private static bool Furniture_canBeRemoved_Postfix(Farmer who, Furniture __instance, ref bool __result)
+        private static void Furniture_canBeRemoved_Postfix(Farmer who, Furniture __instance, ref bool __result)
         {
             try
             {
+                Vector2 position = ((!Game1.wasMouseVisibleThisFrame) ? Game1.player.GetToolLocation() : new Vector2(Game1.getOldMouseX() + Game1.viewport.X, Game1.getOldMouseY() + Game1.viewport.Y));
+
                 switch ((int)__instance.furniture_type)
                 {
                     case 0:
@@ -47,7 +50,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up chair", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up chairs disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 1:
@@ -55,7 +60,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up bench", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up chairs disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 2:
@@ -63,7 +70,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up couch", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up chairs disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 3:
@@ -71,16 +80,19 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpChair)
                         {
                             Monitor.Log($"Preventing player from picking up armchair", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up chairs disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 4:
                         // For type dresser, change the result if it would be picked up but the config says not to
-                        // Note that this likely has no effect due to the StorageFurniture subclass overriding canBeRemoved
                         if (__result && !Config.CanPickUpDresser)
                         {
                             Monitor.Log($"Preventing player from picking up dresser", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up dressers disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 5:
@@ -88,15 +100,23 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpTable)
                         {
                             Monitor.Log($"Preventing player from picking up long table", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up tables disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 6:
                         // For type painting, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpDecoration)
                         {
-                            Monitor.Log($"Preventing player from picking up painting", LogLevel.Debug);
-                            return false;
+                            // Need to check that we're actually trying to pick up this painting
+                            if (__instance.boundingBox.Value.Contains(position.X, position.Y))
+                            {
+                                Monitor.Log($"Preventing player from picking up painting", LogLevel.Debug);
+                                Game1.showRedMessage("Picking up decorations disabled");
+                                __result = false;
+                                return;
+                            }
                         }
                         break;
                     case 7:
@@ -104,7 +124,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpLamp)
                         {
                             Monitor.Log($"Preventing player from picking up lamp", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up lamps disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 8:
@@ -112,7 +134,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up decor", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up decorations disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 9:
@@ -120,7 +144,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up other furniture", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up decorations disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 10:
@@ -128,7 +154,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up bookcase", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up decorations disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 11:
@@ -136,7 +164,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpTable)
                         {
                             Monitor.Log($"Preventing player from picking up table", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up tables disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 12:
@@ -144,15 +174,23 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpRug)
                         {
                             Monitor.Log($"Preventing player from picking up rug", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up rugs disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 13:
                         // For type window, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpWindow)
                         {
-                            Monitor.Log($"Preventing player from picking up window", LogLevel.Debug);
-                            return false;
+                            // Need to check that we're actually trying to pick up this window
+                            if (__instance.boundingBox.Value.Contains(position.X, position.Y))
+                            {
+                                Monitor.Log($"Preventing player from picking up window", LogLevel.Debug);
+                                Game1.showRedMessage("Picking up windows disabled");
+                                __result = false;
+                                return;
+                            }
                         }
                         break;
                     case 14:
@@ -160,7 +198,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpFireplace)
                         {
                             Monitor.Log($"Preventing player from picking up fireplace", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up fireplaces disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 15:
@@ -169,7 +209,9 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpBed)
                         {
                             Monitor.Log($"Preventing player from picking up bed", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up beds disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 16:
@@ -177,15 +219,23 @@ namespace PreventFurniturePickup
                         if (__result && !Config.CanPickUpTorch)
                         {
                             Monitor.Log($"Preventing player from picking up torch", LogLevel.Debug);
-                            return false;
+                            Game1.showRedMessage("Picking up torches disabled");
+                            __result = false;
+                            return;
                         }
                         break;
                     case 17:
                         // For type sconce, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpSconce)
                         {
-                            Monitor.Log($"Preventing player from picking up sconce", LogLevel.Debug);
-                            return false;
+                            // Need to check that we're actually trying to pick up this sconce
+                            if (__instance.boundingBox.Value.Contains(position.X, position.Y))
+                            {
+                                Monitor.Log($"Preventing player from picking up sconce", LogLevel.Debug);
+                                Game1.showRedMessage("Picking up sconces disabled");
+                                __result = false;
+                                return;
+                            }
                         }
                         break;
                 }
@@ -195,8 +245,7 @@ namespace PreventFurniturePickup
                 Monitor.Log($"Failed to change furniture removal behavior with exception: {ex}", LogLevel.Error);
             }
 
-            // Default to not changing anything
-            return __result;
+            return;
         }
     }
 }
