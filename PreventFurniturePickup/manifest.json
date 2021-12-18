@@ -1,0 +1,9 @@
+﻿{
+  "Name": "Prevent Furniture Pickup",
+  "Author": "violetlizabet",
+  "Version": "1.0.0",
+  "Description": "Adds options to prevent picking up furniture by type.",
+  "UniqueID": "violetlizabet.PreventFurniturePickup",
+  "EntryDll": "PreventFurniturePickup.dll",
+  "UpdateKeys": []
+}
