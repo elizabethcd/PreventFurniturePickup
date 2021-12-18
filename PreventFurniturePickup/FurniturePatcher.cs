@@ -145,7 +145,16 @@ namespace PreventFurniturePickup
                         break;
                     case 8:
                         // For type decor, change the result if it would be picked up but the config says not to
-                        if (__result && !Config.CanPickUpDecoration)
+                        // Check if is TV and use TV config values
+                        if (__result && __instance is TV && !Config.CanPickUpTV)
+                        {
+                            Monitor.Log($"Preventing player from picking up TV", LogLevel.Trace);
+                            Game1.showRedMessage(I18n.Get("CanPickUpTV.error"));
+                            __result = false;
+                            return;
+                        }
+                        // Othewise use decoration config values
+                        else if (__result && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up decor", LogLevel.Trace);
                             Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));

@@ -98,6 +98,14 @@ namespace PreventFurniturePickup
                 name: () => I18n.Get("CanPickUpDecoration.title")
                 );
 
+            // Put CanPickUpTV on GMCM page
+            configMenu.AddBoolOption(
+                mod: ModManifest,
+                getValue: () => Config.CanPickUpTV,
+                setValue: value => Config.CanPickUpTV = value,
+                name: () => I18n.Get("CanPickUpTV.title")
+                );
+
             // Put CanPickUpLamp on GMCM page
             configMenu.AddBoolOption(
                 mod: ModManifest,

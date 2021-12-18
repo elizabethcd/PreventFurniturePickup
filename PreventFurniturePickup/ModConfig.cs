@@ -9,6 +9,7 @@ namespace PreventFurniturePickup
         public bool CanPickUpTable { get; set; }
         public bool CanPickUpDresser { get; set; }
         public bool CanPickUpDecoration { get; set; }
+        public bool CanPickUpTV { get; set; }
         public bool CanPickUpLamp { get; set; }
         public bool CanPickUpRug { get; set; }
         public bool CanPickUpWindow { get; set; }
@@ -24,6 +25,7 @@ namespace PreventFurniturePickup
             this.CanPickUpTable = true;
             this.CanPickUpDresser = true;
             this.CanPickUpDecoration = true;
+            this.CanPickUpTV = true;
             this.CanPickUpLamp = true;
             this.CanPickUpRug = true;
             this.CanPickUpWindow = true;
