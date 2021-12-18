@@ -154,7 +154,7 @@ namespace PreventFurniturePickup
                             return;
                         }
                         // Othewise use decoration config values
-                        else if (__result && !Config.CanPickUpDecoration)
+                        else if (__result && !(__instance is TV) && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up decor", LogLevel.Trace);
                             Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
