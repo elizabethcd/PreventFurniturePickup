@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
+using HarmonyLib;
 using StardewModdingAPI.Events;
 using StardewModdingAPI.Utilities;
 using StardewValley;
@@ -10,6 +11,9 @@ namespace PreventFurniturePickup
     /// <summary>The mod entry point.</summary>
     public class ModEntry : Mod
     {
+        // Add a config
+        private ModConfig Config;
+
         /*********
         ** Public methods
         *********/
@@ -17,7 +21,15 @@ namespace PreventFurniturePickup
         /// <param name="helper">Provides simplified APIs for writing mods.</param>
         public override void Entry(IModHelper helper)
         {
-            //helper.Events.Input.ButtonPressed += this.OnButtonPressed;
+            // Read in config file and create if needed
+            this.Config = this.Helper.ReadConfig<ModConfig>();
+
+            // Initialize the error logger in FurniturePatcher
+            FurniturePatcher.Initialize(this.Monitor, this.Config);
+
+            // Do the Harmony things
+            var harmony = new Harmony(this.ModManifest.UniqueID);
+            FurniturePatcher.Apply(harmony);
         }
 
 
