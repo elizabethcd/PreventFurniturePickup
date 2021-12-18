@@ -15,6 +15,7 @@
   "CanPickUpFireplace.title": "Puedes recoger chimeneas",
   "CanPickUpTorch.title": "Puedes recoger antorchas",
   "CanPickUpSconce.title": "Puedes recoger apliques",
+  "CanPickUpFishTank.title": "Puedes recoger peceras",
 
   // Texto de error para los tipos de muebles
   "CanPickUpBed.error": "Recogida de camas está desactivada",
@@ -28,5 +29,6 @@
   "CanPickUpWindow.error": "Recogida de ventanas está desactivada",
   "CanPickUpFireplace.error": "Recogida de chimeneas está desactivada",
   "CanPickUpTorch.error": "Recogida de antorchas está desactivada",
-  "CanPickUpSconce.error": "Recogida de apliques está desactivada"
+  "CanPickUpSconce.error": "Recogida de apliques está desactivada",
+  "CanPickUpFishTank.error": "Recogida de peceras está desactivada"
 }

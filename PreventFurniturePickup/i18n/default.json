@@ -15,6 +15,7 @@
   "CanPickUpFireplace.title": "Can pick up fireplaces",
   "CanPickUpTorch.title": "Can pick up torches",
   "CanPickUpSconce.title": "Can pick up sconces",
+  "CanPickUpFishTank.title":  "Can pick up fish tanks",
 
   // Add in error text for the options
   "CanPickUpBed.error": "Picking up beds disabled",
@@ -28,5 +29,6 @@
   "CanPickUpWindow.error": "Picking up windows disabled",
   "CanPickUpFireplace.error": "Picking up fireplaces disabled",
   "CanPickUpTorch.error": "Picking up torches disabled",
-  "CanPickUpSconce.error": "Picking up sconces disabled"
+  "CanPickUpSconce.error": "Picking up sconces disabled",
+  "CanPickUpFishTank.error": "Picking up fish tanks disabled"
 }

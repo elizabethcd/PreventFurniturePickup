@@ -16,6 +16,7 @@ namespace PreventFurniturePickup
         public bool CanPickUpFireplace { get; set; }
         public bool CanPickUpTorch { get; set; }
         public bool CanPickUpSconce { get; set; }
+        public bool CanPickUpFishTank { get; set; }
 
         public ModConfig()
         {
@@ -32,6 +33,7 @@ namespace PreventFurniturePickup
             this.CanPickUpFireplace = true;
             this.CanPickUpTorch = true;
             this.CanPickUpSconce = true;
+            this.CanPickUpFishTank = true;
         }
     }
 }

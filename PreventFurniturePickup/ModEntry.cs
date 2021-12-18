@@ -153,6 +153,14 @@ namespace PreventFurniturePickup
                 setValue: value => Config.CanPickUpSconce = value,
                 name: () => I18n.Get("CanPickUpSconce.title")
                 );
+
+            // Put CanPickUpFishTank on GMCM page
+            configMenu.AddBoolOption(
+                mod: ModManifest,
+                getValue: () => Config.CanPickUpFishTank,
+                setValue: value => Config.CanPickUpFishTank = value,
+                name: () => I18n.Get("CanPickUpFishTank.title")
+                );
         }
     }
 }

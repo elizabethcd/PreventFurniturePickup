@@ -153,8 +153,16 @@ namespace PreventFurniturePickup
                             __result = false;
                             return;
                         }
+                        // Check if is fish tank and use fish tank config values
+                        else if (__result && __instance is FishTankFurniture && !Config.CanPickUpFishTank)
+                        {
+                            Monitor.Log($"Preventing player from picking up fish tank", LogLevel.Trace);
+                            Game1.showRedMessage(I18n.Get("CanPickUpFishTank.error"));
+                            __result = false;
+                            return;
+                        }
                         // Othewise use decoration config values
-                        else if (__result && !(__instance is TV) && !Config.CanPickUpDecoration)
+                        else if (__result && !(__instance is TV) && !(__instance is FishTankFurniture) && !Config.CanPickUpDecoration)
                         {
                             Monitor.Log($"Preventing player from picking up decor", LogLevel.Trace);
                             Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));

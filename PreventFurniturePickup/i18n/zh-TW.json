@@ -15,6 +15,7 @@
   "CanPickUpFireplace.title": "可以撿起來壁爐",
   "CanPickUpTorch.title": "可以撿起來火炬",
   "CanPickUpSconce.title": "可以撿起來壁掛燈",
+  "CanPickUpFishTank.title": "可以撿起來魚缸",
 
   // 選項的錯誤文本
   "CanPickUpBed.error": "撿起來床現在禁用",
@@ -28,5 +29,6 @@
   "CanPickUpWindow.error": "撿起來窗戶現在禁用",
   "CanPickUpFireplace.error": "撿起來壁爐現在禁用",
   "CanPickUpTorch.error": "撿起來火炬現在禁用",
-  "CanPickUpSconce.error": "撿起來壁掛燈現在禁用"
+  "CanPickUpSconce.error": "撿起來壁掛燈現在禁用",
+  "CanPickUpFishTank.error": "撿起來魚缸現在禁用"
 }
