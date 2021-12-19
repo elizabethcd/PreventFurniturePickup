@@ -63,7 +63,7 @@ namespace PreventFurniturePickup
                         // For type chair, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpChair)
                         {
-                            Monitor.Log($"Preventing player from picking up chair", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up chair", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
@@ -73,7 +73,7 @@ namespace PreventFurniturePickup
                         // For type bench, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpChair)
                         {
-                            Monitor.Log($"Preventing player from picking up bench", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up bench", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
@@ -83,7 +83,7 @@ namespace PreventFurniturePickup
                         // For type couch, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpChair)
                         {
-                            Monitor.Log($"Preventing player from picking up couch", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up couch", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
@@ -93,7 +93,7 @@ namespace PreventFurniturePickup
                         // For type armchair, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpChair)
                         {
-                            Monitor.Log($"Preventing player from picking up armchair", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up armchair", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpChair.error"));
                             __result = false;
                             return;
@@ -103,7 +103,7 @@ namespace PreventFurniturePickup
                         // For type dresser, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpDresser)
                         {
-                            Monitor.Log($"Preventing player from picking up dresser", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up dresser", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpDresser.error"));
                             __result = false;
                             return;
@@ -113,7 +113,7 @@ namespace PreventFurniturePickup
                         // For type longTable, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpTable)
                         {
-                            Monitor.Log($"Preventing player from picking up long table", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up long table", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpTable.error"));
                             __result = false;
                             return;
@@ -126,7 +126,7 @@ namespace PreventFurniturePickup
                             // Need to check that we're actually trying to pick up this painting
                             if (__instance.boundingBox.Value.Contains(position.X, position.Y))
                             {
-                                Monitor.Log($"Preventing player from picking up painting", LogLevel.Trace);
+                                Monitor.Log($"Preventing player from picking up painting", LogLevel.Debug);
                                 Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                                 __result = false;
                                 return;
@@ -137,7 +137,7 @@ namespace PreventFurniturePickup
                         // For type lamp, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpLamp)
                         {
-                            Monitor.Log($"Preventing player from picking up lamp", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up lamp", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpLamp.error"));
                             __result = false;
                             return;
@@ -148,23 +148,15 @@ namespace PreventFurniturePickup
                         // Check if is TV and use TV config values
                         if (__result && __instance is TV && !Config.CanPickUpTV)
                         {
-                            Monitor.Log($"Preventing player from picking up TV", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up TV", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpTV.error"));
                             __result = false;
                             return;
                         }
-                        // Check if is fish tank and use fish tank config values
-                        else if (__result && __instance is FishTankFurniture && !Config.CanPickUpFishTank)
-                        {
-                            Monitor.Log($"Preventing player from picking up fish tank", LogLevel.Trace);
-                            Game1.showRedMessage(I18n.Get("CanPickUpFishTank.error"));
-                            __result = false;
-                            return;
-                        }
                         // Othewise use decoration config values
-                        else if (__result && !(__instance is TV) && !(__instance is FishTankFurniture) && !Config.CanPickUpDecoration)
+                        else if (__result && !(__instance is TV) && !Config.CanPickUpDecoration)
                         {
-                            Monitor.Log($"Preventing player from picking up decor", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up decor", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                             __result = false;
                             return;
@@ -172,9 +164,18 @@ namespace PreventFurniturePickup
                         break;
                     case 9:
                         // For type other, change the result if it would be picked up but the config says not to
-                        if (__result && !Config.CanPickUpDecoration)
+                        // Check if is fish tank and use fish tank config values
+                        if (__result && __instance is FishTankFurniture && !Config.CanPickUpFishTank)
                         {
-                            Monitor.Log($"Preventing player from picking up other furniture", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up fish tank", LogLevel.Debug);
+                            Game1.showRedMessage(I18n.Get("CanPickUpFishTank.error"));
+                            __result = false;
+                            return;
+                        }
+                        // Othewise use decoration config values
+                        else if (__result && !(__instance is FishTankFurniture) && !Config.CanPickUpDecoration)
+                        {
+                            Monitor.Log($"Preventing player from picking up other furniture", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                             __result = false;
                             return;
@@ -184,7 +185,7 @@ namespace PreventFurniturePickup
                         // For type bookcase, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpDecoration)
                         {
-                            Monitor.Log($"Preventing player from picking up bookcase", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up bookcase", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpDecoration.error"));
                             __result = false;
                             return;
@@ -194,7 +195,7 @@ namespace PreventFurniturePickup
                         // For type table, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpTable)
                         {
-                            Monitor.Log($"Preventing player from picking up table", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up table", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpTable.error"));
                             __result = false;
                             return;
@@ -204,7 +205,7 @@ namespace PreventFurniturePickup
                         // For type rug, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpRug)
                         {
-                            Monitor.Log($"Preventing player from picking up rug", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up rug", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpRug.error"));
                             __result = false;
                             return;
@@ -217,7 +218,7 @@ namespace PreventFurniturePickup
                             // Need to check that we're actually trying to pick up this window
                             if (__instance.boundingBox.Value.Contains(position.X, position.Y))
                             {
-                                Monitor.Log($"Preventing player from picking up window", LogLevel.Trace);
+                                Monitor.Log($"Preventing player from picking up window", LogLevel.Debug);
                                 Game1.showRedMessage(I18n.Get("CanPickUpWindow.error"));
                                 __result = false;
                                 return;
@@ -228,7 +229,7 @@ namespace PreventFurniturePickup
                         // For type fireplace, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpFireplace)
                         {
-                            Monitor.Log($"Preventing player from picking up fireplace", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up fireplace", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpFireplace.error"));
                             __result = false;
                             return;
@@ -241,7 +242,7 @@ namespace PreventFurniturePickup
                         // For type torch, change the result if it would be picked up but the config says not to
                         if (__result && !Config.CanPickUpTorch)
                         {
-                            Monitor.Log($"Preventing player from picking up torch", LogLevel.Trace);
+                            Monitor.Log($"Preventing player from picking up torch", LogLevel.Debug);
                             Game1.showRedMessage(I18n.Get("CanPickUpTorch.error"));
                             __result = false;
                             return;
@@ -254,7 +255,7 @@ namespace PreventFurniturePickup
                             // Need to check that we're actually trying to pick up this sconce
                             if (__instance.boundingBox.Value.Contains(position.X, position.Y))
                             {
-                                Monitor.Log($"Preventing player from picking up sconce", LogLevel.Trace);
+                                Monitor.Log($"Preventing player from picking up sconce", LogLevel.Debug);
                                 Game1.showRedMessage(I18n.Get("CanPickUpSconce.error"));
                                 __result = false;
                                 return;
@@ -278,7 +279,7 @@ namespace PreventFurniturePickup
                 // For type bed, change the result if it would be picked up but the config says not to
                 if (__result && !Config.CanPickUpBed)
                 {
-                    Monitor.Log($"Preventing player from picking up bed", LogLevel.Trace);
+                    Monitor.Log($"Preventing player from picking up bed", LogLevel.Debug);
                     Game1.showRedMessage(I18n.Get("CanPickUpBed.error"));
                     __result = false;
                     return;
