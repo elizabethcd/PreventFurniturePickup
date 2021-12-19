@@ -21,3 +21,7 @@ The config options are:
   * CanPickUpFishTank
 
 Each of them is just a boolean (either true or false), so you can turn on/off the ability to pick up each type of furniture.
+
+## Questions?
+
+If you have any questions, you can find me on the Stardew Valley discord in #making-mods.
