@@ -51,116 +51,18 @@ namespace PreventFurniturePickup
                 reset: () => Config = new ModConfig(),
                 save: () => Helper.WriteConfig(Config)
                 );
-
-            // Put mod description on GMCM page
-            configMenu.AddParagraph(
-                mod: ModManifest,
-                text: () => I18n.Get("mod.description")
-                );
-
-            // Put CanPickUpBed on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpBed,
-                setValue: value => Config.CanPickUpBed = value,
-                name: () => I18n.Get("CanPickUpBed.title")
-                );
-
-            // Put CanPickUpChair on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpChair,
-                setValue: value => Config.CanPickUpChair = value,
-                name: () => I18n.Get("CanPickUpChair.title")
-                );
-
-            // Put CanPickUpTable on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpTable,
-                setValue: value => Config.CanPickUpTable = value,
-                name: () => I18n.Get("CanPickUpTable.title")
-                );
-
-            // Put CanPickUpDresser on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpDresser,
-                setValue: value => Config.CanPickUpDresser = value,
-                name: () => I18n.Get("CanPickUpDresser.title")
-                );
-
-            // Put CanPickUpDecoration on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpDecoration,
-                setValue: value => Config.CanPickUpDecoration = value,
-                name: () => I18n.Get("CanPickUpDecoration.title")
-                );
-
-            // Put CanPickUpTV on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpTV,
-                setValue: value => Config.CanPickUpTV = value,
-                name: () => I18n.Get("CanPickUpTV.title")
-                );
-
-            // Put CanPickUpLamp on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpLamp,
-                setValue: value => Config.CanPickUpLamp = value,
-                name: () => I18n.Get("CanPickUpLamp.title")
-                );
-
-            // Put CanPickUpRug on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpRug,
-                setValue: value => Config.CanPickUpRug = value,
-                name: () => I18n.Get("CanPickUpRug.title")
-                );
-
-            // Put CanPickUpWindow on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpWindow,
-                setValue: value => Config.CanPickUpWindow = value,
-                name: () => I18n.Get("CanPickUpWindow.title")
-                );
-
-            // Put CanPickUpFireplace on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpFireplace,
-                setValue: value => Config.CanPickUpFireplace = value,
-                name: () => I18n.Get("CanPickUpFireplace.title")
-                );
-
-            // Put CanPickUpTorch on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpTorch,
-                setValue: value => Config.CanPickUpTorch = value,
-                name: () => I18n.Get("CanPickUpTorch.title")
-                );
-
-            // Put CanPickUpSconce on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpSconce,
-                setValue: value => Config.CanPickUpSconce = value,
-                name: () => I18n.Get("CanPickUpSconce.title")
-                );
-
-            // Put CanPickUpFishTank on GMCM page
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                getValue: () => Config.CanPickUpFishTank,
-                setValue: value => Config.CanPickUpFishTank = value,
-                name: () => I18n.Get("CanPickUpFishTank.title")
-                );
+            foreach (System.Reflection.PropertyInfo property in typeof(ModConfig).GetProperties())
+            {
+                if (property.PropertyType.Equals(typeof(bool)))
+                {
+                    configMenu.AddBoolOption(
+                        mod: ModManifest,
+                        getValue: () => (bool)property.GetValue(Config),
+                        setValue: value => property.SetValue(Config, value),
+                        name: () => Helper.Translation.Get($"{property.Name}.title")
+                       );
+                }
+            }
         }
     }
 }
